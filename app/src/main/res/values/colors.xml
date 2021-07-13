@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="primaryColor">#fafafa</color>
+    <color name="primaryLightColor">#ffffff</color>
+    <color name="primaryDarkColor">#c7c7c7</color>
+    <color name="secondaryColor">#e65100</color>
+    <color name="secondaryLightColor">#ff833a</color>
+    <color name="secondaryDarkColor">#ac1900</color>
+    <color name="primaryTextColor">#e65100</color>
+    <color name="secondaryTextColor">#fafafa</color>
+
+    <color name="editTextBgColor">#A8F4C2A5</color>
+</resources>

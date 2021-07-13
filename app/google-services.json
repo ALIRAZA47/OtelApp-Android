@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "829229912602",
+    "project_id": "otelapp-e877d",
+    "storage_bucket": "otelapp-e877d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829229912602:android:e94d0f5d91eb1f08cef7a3",
+        "android_client_info": {
+          "package_name": "com.example.otelapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "829229912602-1kou62q11mrddlncc8fs2ags2se6sv1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkxo7YJlqnDTqrgvEXM-zpkR07bfbKO18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "829229912602-1kou62q11mrddlncc8fs2ags2se6sv1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

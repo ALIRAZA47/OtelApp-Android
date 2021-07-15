@@ -1,15 +1,17 @@
 package com.example.otelapp.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.otelapp.R;
 import com.example.otelapp.activities.signin_signup.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class IntroActivity extends AppCompatActivity {
+    FirebaseAuth mAuth;
     int counter = 0;
     private final int SPLASH_DISPLAY_LENGTH = 1000;
 
@@ -17,6 +19,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+        mAuth = FirebaseAuth.getInstance();
 //        redirect();
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
@@ -24,9 +27,15 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(IntroActivity.this, LoginActivity.class);
-                startActivity(mainIntent);
-                finish();
+                if (mAuth.getCurrentUser() != null) {
+                    Intent mainIntent = new Intent(IntroActivity.this, LoginActivity.class);
+                    startActivity(mainIntent);
+                    finish();
+                } else {
+                    Intent mainIntent = new Intent(IntroActivity.this, LoginActivity.class);
+                    startActivity(mainIntent);
+                    finish();
+                }
             }
         }, SPLASH_DISPLAY_LENGTH);
     }

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "829229912602-5hpsi89009vclr22ab8n9fm2nqfmaaln.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.otelapp",
+            "certificate_hash": "663cbc208d65f618d69eaccdd5d883298ec5d064"
+          }
+        },
+        {
           "client_id": "829229912602-1kou62q11mrddlncc8fs2ags2se6sv1k.apps.googleusercontent.com",
           "client_type": 3
         }

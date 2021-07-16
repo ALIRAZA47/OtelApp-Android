@@ -1,15 +1,23 @@
 <resources>
-    <string name="app_name">Otel App</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="login_using_phone_no"><u>Login Using Phone No.</u></string>
-    <string name="login_using_email"><u>Login Using Email</u></string>
-    <string name="dont_have_acc"><u>Do not have account? Signup</u></string>
+    <string name="app_name" translatable="false">Otel App</string>
+    <string name="title_activity_login" translatable="false">LoginActivity</string>
+    <string name="prompt_email" translatable="false">Email</string>
+    <string name="prompt_password" translatable="false">Password</string>
+    <string name="action_sign_in" translatable="false">Sign in or register</string>
+    <string name="action_sign_in_short" translatable="false">Sign in</string>
+    <string name="welcome" translatable="false">"Welcome !"</string>
+    <string name="invalid_username" translatable="false">Not a valid username</string>
+    <string name="invalid_password" translatable="false">Password must be >5 characters</string>
+    <string name="login_failed" translatable="false">"Login failed"</string>
+    <string name="login_using_phone_no" translatable="false"><u>Login Using Phone No.</u></string>
+    <string name="login_using_email" translatable="false"><u>Login Using Email</u></string>
+    <string name="dont_have_acc" translatable="false"><u>Do not have account? Signup</u></string>
+    <string name="already_have_account"><u>Already have an Account? Login</u></string>
+
+    //Gender Array for drop down
+    <string-array name="genderDropDownArray">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
 </resources>

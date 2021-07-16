@@ -28,7 +28,7 @@ public class IntroActivity extends AppCompatActivity {
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
                 if (mAuth.getCurrentUser() != null) {
-                    Intent mainIntent = new Intent(IntroActivity.this, LoginActivity.class);
+                    Intent mainIntent = new Intent(IntroActivity.this, MainActivity.class);
                     startActivity(mainIntent);
                     finish();
                 } else {

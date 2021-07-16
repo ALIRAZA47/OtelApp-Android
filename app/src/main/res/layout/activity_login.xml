@@ -12,7 +12,7 @@
     tools:context=".activities.signin_signup.LoginActivity">
 
     <EditText
-        android:id="@+id/loginUsername"
+        android:id="@+id/loginEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -42,40 +42,24 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/loginEmail" />
 
-    <LinearLayout
-        android:id="@+id/btnLogin"
+    <Button
+        android:id="@+id/btnEmailLogin"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_marginTop="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/btn_styled"
+        android:drawableRight="@drawable/ic_baseline_login_24"
         android:gravity="center"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="Login"
         app:layout_constraintEnd_toEndOf="@+id/loginPassword"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/loginPassword"
-        app:layout_constraintTop_toBottomOf="@+id/loginPassword">
+        app:layout_constraintTop_toBottomOf="@+id/loginPassword"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:text="Login"
-            android:textAlignment="center"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="25dp" />
-
-        <ImageView
-            android:layout_width="30dp"
-
-            android:layout_height="30dp"
-            android:layout_gravity="end|center"
-            android:src="@drawable/ic_baseline_login_24">
-
-        </ImageView>
-    </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView2"
@@ -92,18 +76,20 @@
         android:id="@+id/btnPhoneLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:text="@string/login_using_phone_no"
         android:textColor="@color/primaryTextColor"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/btnEmailLogin" />
 
     <TextView
         android:id="@+id/btnSignup"
         android:textColor="@color/primaryTextColor"
         android:layout_width="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_height="wrap_content"
         android:text="@string/dont_have_acc"
         app:layout_constraintEnd_toEndOf="parent"

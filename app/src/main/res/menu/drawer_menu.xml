@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="Follow us!" android:id="@+id/navFollowUs" />
+    <item android:title="Profile"  android:id="@+id/navProfile"/>
+    <item android:title="Rate us" android:id="@+id/navRateUs"/>
+    <item android:title="Logout" android:id="@+id/navLogout"/>
+</menu>

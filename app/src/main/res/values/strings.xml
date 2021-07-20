@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Otel App</string>
+    <string name="app_name">Otel App</string>
     <string name="title_activity_login" translatable="false">LoginActivity</string>
     <string name="prompt_email" translatable="false">Email</string>
     <string name="prompt_password" translatable="false">Password</string>

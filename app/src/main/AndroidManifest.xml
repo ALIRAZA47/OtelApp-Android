@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.otelapp">
 
-    // permissions here
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OtelApp">
-        <activity android:name=".activities.signin_signup.VerifyPhone"></activity>
+        <activity android:name=".activities.SpecificHotel"></activity>
+        <activity android:name=".activities.signin_signup.VerifyPhone" />
         <activity android:name=".activities.signin_signup.SignupActivity" />
         <activity android:name=".activities.signin_signup.PhoneLoginActivity" />
         <activity

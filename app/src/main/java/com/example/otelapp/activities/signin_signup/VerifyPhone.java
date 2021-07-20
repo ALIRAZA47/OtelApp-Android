@@ -121,6 +121,7 @@ public class VerifyPhone extends AppCompatActivity {
                    if(task.isSuccessful()){
                        Toast.makeText(this, "User Has been Logged in as "+mAuth.getCurrentUser().getPhoneNumber(), Toast.LENGTH_SHORT).show();
                        Intent gotoMainActivity = new Intent(this, MainActivity.class);
+                       gotoMainActivity.putExtra("phoneNumber", phoneNumber);
                        startActivity(gotoMainActivity);
                        finish();
                    }

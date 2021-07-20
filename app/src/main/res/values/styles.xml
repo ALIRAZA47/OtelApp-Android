@@ -5,4 +5,18 @@
         <item name="android:textColor">@color/secondaryTextColor</item>
     </style>
 
+    <style name="Widget.AppCompat.PopupWindow.Popme">
+        <!-- specify enter and exit transitions -->
+        <item name="android:windowEnterTransition">@android:transition/slide_bottom</item>
+        <item name="android:windowExitTransition">@android:transition/slide_right</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowActivityTransitions">true</item>
+
+
+
+
+    </style>
+
 </resources>

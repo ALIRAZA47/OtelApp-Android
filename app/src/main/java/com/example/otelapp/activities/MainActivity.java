@@ -89,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
 
     //retrieve data from database
     private void retrieveDataFromDatabase() {
-
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Successfully retrieved data
+                hotels.clear();
                 Log.i("TAG-Hotel", "onDataChange:  Data--> " + snapshot.child("main").child("hotelsList").toString());
                 for (DataSnapshot userSnap : snapshot.child("main").child("hotelsList").getChildren()) {
                     Hotel hotel = new Hotel();
@@ -226,8 +226,8 @@ public class MainActivity extends AppCompatActivity {
     //Save current user to shared preferences
     private void saveUserToSharedPref(User currentUser) {
         String user = new Gson().toJson(currentUser);
-
         SharedPreferences.Editor editor = sharedPref.edit();
+        editor.clear();
         editor.putString("currentUser", user);
         editor.commit();
         Log.i("TAG-UserSaved", "saveUserToSharedPref: ---> User has been Saved"+ user);
@@ -243,5 +243,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }

@@ -11,14 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OtelApp">
-        <activity android:name=".activities.SpecificHotel"></activity>
+        <activity android:name=".BookRoomPopup" android:theme="@style/Widget.AppCompat.PopupWindow.Popme" ></activity>
+        <activity android:name=".activities.SpecificHotel" />
         <activity android:name=".activities.signin_signup.VerifyPhone" />
         <activity android:name=".activities.signin_signup.SignupActivity" />
         <activity android:name=".activities.signin_signup.PhoneLoginActivity" />
         <activity
             android:name=".activities.signin_signup.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".activities.IntroActivity">
+        <activity android:name=".activities.IntroActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

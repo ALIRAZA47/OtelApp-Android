@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.otelapp.R;
 import com.example.otelapp.activities.SpecificHotel;
 import com.example.otelapp.models.Hotel;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -54,7 +55,7 @@ public class HotelMainAdapter extends RecyclerView.Adapter<HotelMainAdapter.Hote
         //start new activity on click
         holder.hotelCard.setOnClickListener(v -> {
             Intent intent = new Intent(context, SpecificHotel.class);
-            intent.putExtra("hotelName", hotels.get(position).hotelName);
+            intent.putExtra("selectedHotel", new Gson().toJson(hotels.get(position)));
             context.startActivity(intent);
         });
 

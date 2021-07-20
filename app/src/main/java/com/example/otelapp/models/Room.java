@@ -3,14 +3,12 @@ package com.example.otelapp.models;
 public class Room {
     public String roomNumber;
     public String currentStatus;
-    public User residentOfRoomIfAny;
 
     //constructor
 
-    public Room(String roomNumber, String currentStatus, User residentOfRoomIfAny) {
+    public Room(String roomNumber, String currentStatus) {
         this.roomNumber = roomNumber;
         this.currentStatus = currentStatus;
-        this.residentOfRoomIfAny = residentOfRoomIfAny;
     }
 
     public Room() {
@@ -23,7 +21,6 @@ public class Room {
         return "Room{" +
                 "roomNumber='" + roomNumber + '\'' +
                 ", currentStatus='" + currentStatus + '\'' +
-                ", residentOfRoomIfAny=" + residentOfRoomIfAny +
                 '}';
     }
 }

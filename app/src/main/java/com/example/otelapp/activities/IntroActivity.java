@@ -23,19 +23,16 @@ public class IntroActivity extends AppCompatActivity {
 //        redirect();
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                if (mAuth.getCurrentUser() != null) {
-                    Intent mainIntent = new Intent(IntroActivity.this, MainActivity.class);
-                    startActivity(mainIntent);
-                    finish();
-                } else {
-                    Intent mainIntent = new Intent(IntroActivity.this, LoginActivity.class);
-                    startActivity(mainIntent);
-                    finish();
-                }
+        new Handler().postDelayed(() -> {
+            /* Create an Intent that will start the Menu-Activity. */
+            if (mAuth.getCurrentUser() != null) {
+                Intent mainIntent = new Intent(IntroActivity.this, HomeActivity.class);
+                startActivity(mainIntent);
+                finish();
+            } else {
+                Intent mainIntent = new Intent(IntroActivity.this, LoginActivity.class);
+                startActivity(mainIntent);
+                finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
     }

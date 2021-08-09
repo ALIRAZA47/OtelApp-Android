@@ -13,6 +13,9 @@
     <string name="login_using_email" translatable="false"><u>Login Using Email</u></string>
     <string name="dont_have_acc" translatable="false"><u>Do not have account? Signup</u></string>
     <string name="already_have_account"><u>Already have an Account? Login</u></string>
+    <string name="string_roomNo">Room No.: </string>
+    <string name="string_fare">Fare of Room: Rs </string>
+    <string name="string_Phone">"Phone: "</string>
 
     //Gender Array for drop down
     <string-array name="genderDropDownArray">

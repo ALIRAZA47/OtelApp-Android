@@ -21,6 +21,7 @@ import com.example.otelapp.activities.signin_signup.LoginActivity;
 import com.example.otelapp.adapters.HotelMainAdapter;
 import com.example.otelapp.models.Hotel;
 import com.example.otelapp.models.User;
+import com.example.otelapp.utils.SharedPrefs;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button logout;
     // ordinary variables here
-    private SharedPreferences sharedPref;
+    private SharedPrefs sharedPref;
     private User user;
     private User currentUser = new User();
     private ArrayList<User> users = new ArrayList<>();
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         dbRef = database.getReference();
         mAuth = FirebaseAuth.getInstance();
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPref = new SharedPrefs(this);
 
         //function calls here
         setupViews();
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("TAG-Hotel", "onDataChange:  Data--> " + snapshot.child("main").child("hotelsList").toString());
                 for (DataSnapshot userSnap : snapshot.child("main").child("hotelsList").getChildren()) {
                     Hotel hotel = new Hotel();
+                    Log.i("TAG-Snap", "onDataChange: --> " + userSnap.toString());
                     hotel = userSnap.getValue(Hotel.class);
                     hotels.add(hotel);
                     Log.i("TAG--", "onDataChange: --> " + userSnap.toString());
@@ -226,10 +228,8 @@ public class MainActivity extends AppCompatActivity {
     //Save current user to shared preferences
     private void saveUserToSharedPref(User currentUser) {
         String user = new Gson().toJson(currentUser);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.clear();
-        editor.putString("currentUser", user);
-        editor.commit();
+        sharedPref.removeKeyPair("currentUser");
+        sharedPref.setString("currentUser", user);
         Log.i("TAG-UserSaved", "saveUserToSharedPref: ---> User has been Saved"+ user);
 
 

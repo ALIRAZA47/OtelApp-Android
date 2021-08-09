@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.otelapp.R;
 import com.example.otelapp.activities.SpecificHotel;
 import com.example.otelapp.models.Hotel;
+import com.example.otelapp.utils.SharedPrefs;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -23,12 +24,14 @@ public class HotelMainAdapter extends RecyclerView.Adapter<HotelMainAdapter.Hote
     //Variables here
     Context context;
     ArrayList<Hotel> hotels = new ArrayList<>();
+    SharedPrefs prefs;
 
     //adapter constructor
     public HotelMainAdapter(Context context, ArrayList<Hotel> hotels) {
         //Log.i("TAG-Recycler", "HotelMainAdapter: ---> "+hotels.toString());
         this.context = context;
         this.hotels = hotels;
+        this.prefs = new SharedPrefs(context);
     }
 
     @Override
@@ -55,7 +58,9 @@ public class HotelMainAdapter extends RecyclerView.Adapter<HotelMainAdapter.Hote
         //start new activity on click
         holder.hotelCard.setOnClickListener(v -> {
             Intent intent = new Intent(context, SpecificHotel.class);
-            intent.putExtra("selectedHotel", new Gson().toJson(hotels.get(position)));
+
+            prefs.removeKeyPair("selectedHotel");
+            prefs.setString("selectedHotel" ,new Gson().toJson(hotels.get(position)));
             context.startActivity(intent);
         });
 

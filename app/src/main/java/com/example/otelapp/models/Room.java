@@ -3,15 +3,19 @@ package com.example.otelapp.models;
 public class Room {
     public String roomNumber;
     public String currentStatus;
+    public String roomFare;
+    public String roomDetail;
 
-    //constructor
-
-    public Room(String roomNumber, String currentStatus) {
-        this.roomNumber = roomNumber;
-        this.currentStatus = currentStatus;
-    }
+    //constructors
 
     public Room() {
+    }
+
+    public Room(String roomNumber, String currentStatus, String roomFare, String roomDetail) {
+        this.roomNumber = roomNumber;
+        this.currentStatus = currentStatus;
+        this.roomFare = roomFare;
+        this.roomDetail = roomDetail;
     }
 
     //to string

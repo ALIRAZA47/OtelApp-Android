@@ -38,7 +38,6 @@ dependencies    {
     implementation 'androidx.annotation:annotation:1.2.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation 'com.google.firebase:firebase-database:20.0.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
@@ -47,11 +46,16 @@ dependencies    {
     implementation 'io.alterac.blurkit:blurkit:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    // Import the BoM for the Firebase platform
+    // firebase depends
     implementation platform('com.google.firebase:firebase-bom:28.2.1')
+    implementation 'com.google.firebase:firebase-storage:20.0.0'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-database:20.0.0'
 
     // Declare the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-auth'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
 }

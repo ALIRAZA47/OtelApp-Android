@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerHome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryColor"
+
+    tools:context=".activities.HomeActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/primaryColor"
+
+                tools:context=".activities.HomeActivity">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appBarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/topAppBarHome"
+                        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:backgroundTint="@color/secondaryColor"
+                        app:navigationIcon="@drawable/ic_menu"
+                        app:navigationIconTint="@color/white"
+                        app:title="@string/app_name"
+                        app:titleCentered="true"
+                        app:titleTextColor="@color/white" />
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/materialCardView"
+                        android:layout_width="150dp"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0"
+                        app:strokeColor="@color/secondaryLightColor"
+                        app:strokeWidth="3dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/currentLocation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top|center"
+                                android:layout_marginTop="4dp"
+                                android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                                android:text="Mianwali"
+                                android:textColor="@color/primaryTextColor"
+                                android:textSize="25sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/currentWeatherString"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Rain Showers"
+                                android:textColor="@color/primaryTextColor"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/currentWeatherTemperature"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="-4dp"
+                                android:text="36&#xb0;"
+                                android:textColor="@color/primaryTextColor"
+                                android:textSize="70sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/currentWeatherTempMin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Min: "
+                                android:textColor="@color/primaryTextColor"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/currentWeatherMax"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="-6dp"
+                                android:text="Max: "
+                                android:textColor="@color/primaryTextColor"
+                                android:textSize="18sp" />
+
+
+                        </LinearLayout>
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="572dp"
+                android:background="@drawable/ic_wave__1_">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Book on the Go!"
+
+                    android:textAlignment="center"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="25sp"
+
+                    app:layout_constraintBottom_toTopOf="@+id/btnBookNow"
+                    app:layout_constraintEnd_toEndOf="@+id/btnBookNow"
+                    app:layout_constraintStart_toStartOf="@+id/btnBookNow" />
+
+                <Button
+                    android:id="@+id/btnBookNow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/btn_styled_light"
+                    android:elevation="20dp"
+                    android:text="Book Room Now"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="20sp"
+                    app:backgroundTint="@color/secondaryLightColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationViewHome"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu">
+
+    </com.google.android.material.navigation.NavigationView>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
+

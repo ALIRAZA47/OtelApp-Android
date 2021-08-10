@@ -122,7 +122,7 @@ public class PhoneLoginActivity extends AppCompatActivity {
         //check if numbers MActh
         for (User user : users) {
             if (user.phone.equals(phoneNumberString)) {
-                Toast.makeText(PhoneLoginActivity.this, "Phone Match....", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, getString(R.string.phone_match), Toast.LENGTH_SHORT).show();
                 return true;
             }
         }
@@ -140,12 +140,12 @@ public class PhoneLoginActivity extends AppCompatActivity {
             //Start verify activity to verify phone number
             phoneNumberString = String.valueOf(phoneNumber.getText());
             if (checkIfNumberIsRegistered(phoneNumberString)) {
-                Toast.makeText(PhoneLoginActivity.this, "User Found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, getString(R.string.user_found), Toast.LENGTH_SHORT).show();
                 // start verification (activity)
                 gotoVerifyActivity.putExtra("PhoneNumber", phoneNumberString);
                 startActivity(gotoVerifyActivity);
             } else {
-                Toast.makeText(PhoneLoginActivity.this, "Phone Number Not Registered", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, getString(R.string.phone_not_registered), Toast.LENGTH_SHORT).show();
                 startActivity(gotoLoginActivity);
             }
             finish();

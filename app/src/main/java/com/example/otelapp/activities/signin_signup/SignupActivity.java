@@ -82,7 +82,7 @@ public class SignupActivity extends AppCompatActivity {
     // set drop down menu for gender
     private void showDropDownForGender() {
         genderDropDown = findViewById(R.id.genderDropDownMenu);
-        String[] items = new String[] {"Select gender: ", "Male", "Female", "Other"};
+        String[] items = new String[] {getString(R.string.select_gender), getString(R.string.male), getString(R.string.female), getString(R.string.other_gender)};
         dropDownAdapter = new ArrayAdapter<String>(this, R.layout.drop_down_layout, items);
         genderDropDown.setAdapter(dropDownAdapter);
 
@@ -136,21 +136,16 @@ public class SignupActivity extends AppCompatActivity {
                     genderOfUser);
 
             Log.i("SignupFileds", "addNewUser: "+nameStr+emailStr+passwordStr+passwordConfirmStr+phoneStr+addressStr+genderOfUser);
-            if(nameStr.isEmpty() || addressStr.isEmpty() || phoneStr.isEmpty() || cnicStr.isEmpty()){
-                Toast.makeText(this, "Required fields are left empty", Toast.LENGTH_SHORT).show();
+            if(nameStr.isEmpty()){
+                Toast.makeText(this, getString(R.string.name_required), Toast.LENGTH_SHORT).show();
                 return;
             }
-            else if(emailStr.isEmpty()) {
-                Toast.makeText(this, "Email is Required", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            else if (passwordStr.isEmpty() || passwordConfirmStr.isEmpty()){
-                Toast.makeText(this, "Password required.", Toast.LENGTH_SHORT).show();
+            else if (emailStr.isEmpty() ||passwordStr.isEmpty() || passwordConfirmStr.isEmpty()){
+                Toast.makeText(this, getString(R.string.provide_email_pass), Toast.LENGTH_SHORT).show();
                 return;
             }
             else if(!(passwordConfirmStr.equals(passwordStr))){
-                Toast.makeText(this, "Password do not match", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.passwords_not_match), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -161,7 +156,7 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isComplete()){
-                            Toast.makeText(SignupActivity.this, "Signed up successfully!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, getString(R.string.signup_success), Toast.LENGTH_SHORT).show();
                         }
                         else{
                             Toast.makeText(SignupActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();

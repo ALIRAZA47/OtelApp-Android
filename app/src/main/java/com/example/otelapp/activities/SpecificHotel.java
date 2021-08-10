@@ -97,7 +97,7 @@ public class SpecificHotel extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
                 //could'nt get Data log an error message
 //                Log.i("TAG", "loadPost:onCancelled  Error is-->  " + (error.toException().getMessage()));
-                Toast.makeText(SpecificHotel.this, "Failed to Retrieve Data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SpecificHotel.this, getString(R.string.failed_to_retrieve_data), Toast.LENGTH_SHORT).show();
                 return;
             }
         };
@@ -143,7 +143,7 @@ public class SpecificHotel extends AppCompatActivity {
         user = sharePref.getString("currentUser");
         Log.i("TAG-HeHe", "getUserFromSharedPref: " + user);
         if (user.isEmpty()) {
-            Toast.makeText(this, "Couldn't retrieve user", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.user_not_retrieved), Toast.LENGTH_SHORT).show();
         } else {
             currentUser = new Gson().fromJson(user, User.class);
             Log.i("TAG-HeHe", "getUserFromSharedPref: --> " + currentUser.toString());

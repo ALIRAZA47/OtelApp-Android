@@ -1,10 +1,15 @@
 package com.example.otelapp.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,20 +23,33 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.otelapp.R;
 import com.example.otelapp.activities.signin_signup.LoginActivity;
+import com.example.otelapp.models.User;
+import com.example.otelapp.utils.SharedPrefs;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
+    //Firebase variables here
+    FirebaseDatabase database;
+    FirebaseAuth mAuth;
+    DatabaseReference dbRef;
 
     //UI variables
     AdView bannerAdView,bannerAdView2,bannerAdView3,bannerAdView4,bannerAdView5,bannerAdView6,bannerAdView7,bannerAdView8;
@@ -42,8 +60,14 @@ public class HomeActivity extends AppCompatActivity {
     Button btnBookNow;
     TextView cWeatherMain, cWeatherTemp, cWeatherTempMin, cWeatherTempMax;
 
-    //Firebase variables
-    FirebaseAuth mAuth;
+    //Ordinary variables
+    private User currentUser = new User();
+    String userPhoneNumber;
+    private ArrayList<User> users = new ArrayList<>();
+    SharedPrefs sharedPref;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +78,9 @@ public class HomeActivity extends AppCompatActivity {
 
         //variables declarations here
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        dbRef = database.getReference();
+        sharedPref = new SharedPrefs(this);
         btnBookNow = findViewById(R.id.btnBookNow);
         btnBookNow.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
@@ -68,6 +95,7 @@ public class HomeActivity extends AppCompatActivity {
         requestAndSetWeather();
         setupDrawerLayout();
         setupAds();
+        retrieveDataFromDatabaseForUser();
 
 
 
@@ -142,11 +170,44 @@ public class HomeActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             //if logout is clicked
             if (item.getItemId() == R.id.navLogout) {
-                mAuth.signOut();
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-                drawerLayout.closeDrawers();
+                TextView title = new TextView(this);
+                title.setText(getString(R.string.sure_you_want_to_logout));
+                title.setPadding(10, 10, 10, 10);
+                title.setGravity(Gravity.CENTER);
+                title.setTextColor(Color.WHITE);
+                title.setTextSize(20);
+
+                AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.MyAlertDialogTheme).create();
+                alertDialog.setCustomTitle(title);
+                this.dbRef = FirebaseDatabase.getInstance().getReference("main");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                mAuth.signOut();
+                                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                                drawerLayout.closeDrawers();
+                                startActivity(intent);
+                                finish();
+                                dialog.dismiss();
+
+                            }
+                        });
+
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+
+                Button btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                Button btnNegative = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) btnPositive.getLayoutParams();
+                layoutParams.weight = 10;
+                btnPositive.setLayoutParams(layoutParams);
+                btnNegative.setLayoutParams(layoutParams);
             }
             if(item.getItemId() == R.id.navProfile){
                 Intent intent = new Intent(this, ProfileActivity.class);
@@ -158,6 +219,83 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
+
+    private void retrieveDataFromDatabaseForUser() {
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Successfully retrieved data
+                for (DataSnapshot userSnap : snapshot.child("main").child("users").getChildren()) {
+                    User user = new User();
+                    user = userSnap.getValue(User.class);
+                    users.add(user);
+                    setCurrentUser();
+                    Log.i("TAG-SingleUserSnap", "onDataChange: --> " + userSnap.toString());
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //could'nt get Data log an error message
+                Log.i("TAG", "loadPost:onCancelled  Error is-->  " + (error.toException().getMessage()));
+            }
+        };
+        dbRef.addValueEventListener(postListener);
+    }
+
+    //set current user function
+    private void setCurrentUser() {
+        //if user has logged in using phone number
+        if (mAuth.getCurrentUser().getEmail().isEmpty()) {
+            String tempPhone = mAuth.getCurrentUser().getPhoneNumber();
+            userPhoneNumber = tempPhone.substring(3);
+            Log.i("TAG-PhoneMain", "setCurrentUser:   numbers are ---> "+tempPhone+" and "+userPhoneNumber);
+            tempPhone.substring(0,2);
+            ValueEventListener postListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    // Successfully retrieved data
+                    currentUser = snapshot.child("main").child("users").child(userPhoneNumber).getValue(User.class);
+                    saveUserToSharedPref(currentUser);
+                }
+
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    //could'nt get Data log an error message
+                    Log.i("TAG", "loadPost:onCancelled  Error is-->  " + (error.toException().getMessage()));
+                }
+            };
+            dbRef.addValueEventListener(postListener);
+
+        }
+        //if user has logged in using email
+        else {
+            for (User user : users) {
+                if (user.email.equals(mAuth.getCurrentUser().getEmail())) {
+                    currentUser = user;
+                    saveUserToSharedPref(currentUser);
+                }
+            }
+
+        }
+
+
+//        Log.i("TAG-CurrentUser", "setCurrentUser: --> "+currentUser.toString());
+    }
+
+    private void saveUserToSharedPref(User currentUser) {
+        String user = new Gson().toJson(currentUser);
+        sharedPref.removeKeyPair("currentUser");
+        sharedPref.setString("currentUser", user);
+        Log.i("TAG-UserSaved", "saveUserToSharedPref: ---> User has been Saved"+ user);
+
+
+    }
+
 
 
     @Override

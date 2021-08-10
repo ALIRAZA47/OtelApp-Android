@@ -51,19 +51,19 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.RoomsViewHol
         if (rooms.get(position).currentStatus.equals("Booked")
                 ||
                 rooms.get(position).currentStatus.equals("booked")) {
-            holder.roomCardContainer.setCardBackgroundColor(context.getResources().getColor(R.color.pendingRoomColor));
+            holder.roomCardContainer.setCardBackgroundColor(context.getResources().getColor(R.color.secondaryLightColor));
         }
         if (rooms.get(position).currentStatus.equals("Pending")
                 ||
-                rooms.get(position).currentStatus.equals("Pending")) {
-            holder.roomCardContainer.setCardBackgroundColor(context.getResources().getColor(R.color.secondaryLightColor));
+                rooms.get(position).currentStatus.equals("pending")) {
+            holder.roomCardContainer.setCardBackgroundColor(context.getResources().getColor(R.color.pendingRoomColor));
         }
 
         // now card click functionality
         holder.roomCardContainer.setOnClickListener(v -> {
             if ((rooms.get(position).currentStatus.equals("Booked")) || (rooms.get(position).currentStatus.equals("Pending"))) {
                 // proceed on if room is not booked
-                Toast.makeText(context, "Already Booked ^_^", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getString(R.string.already_booked), Toast.LENGTH_SHORT).show();
                 return;
             } else {
                // room is not Booked so user can proceed to book the room

@@ -119,7 +119,7 @@ public class VerifyPhone extends AppCompatActivity {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(VerifyPhone.this, task -> {
                    if(task.isSuccessful()){
-                       Toast.makeText(this, "User Has been Logged in as "+mAuth.getCurrentUser().getPhoneNumber(), Toast.LENGTH_SHORT).show();
+                       Toast.makeText(this, getString(R.string.singed_in), Toast.LENGTH_SHORT).show();
                        Intent gotoMainActivity = new Intent(this, MainActivity.class);
                        gotoMainActivity.putExtra("phoneNumber", phoneNumber);
                        startActivity(gotoMainActivity);

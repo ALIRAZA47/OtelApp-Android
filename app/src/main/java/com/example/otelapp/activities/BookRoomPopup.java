@@ -2,7 +2,9 @@ package com.example.otelapp.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -121,24 +124,49 @@ public class BookRoomPopup extends Activity {
 
     //function to display alert to ask user whether he is willing to book the room or not
     private void alertForYesNo() {
-        new AlertDialog.Builder(this)
-                .setTitle(" :: Book Room :: ")
-                .setMessage("Are Sure you want to Book the Room ?")
-                .setPositiveButton("Yes", (dialog, which) -> {
-                    selectedRoom.currentStatus = "Pending";
-                    int num = Integer.parseInt(selectedRoom.roomNumber);
-                    String numStr = String.valueOf(num);
-                    dbRef.child("hotelsList").child(selectedHotel.hotelName).child("rooms").child(numStr).setValue(selectedRoom);
-                    Toast.makeText(BookRoomPopup.this, "Done!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(BookRoomPopup.this, SpecificHotel.class);
-                    startActivity(intent);
-                    dialog.dismiss();
-                })
-                .setNegativeButton("No", (dialog, which) -> {
-                    //Toast.makeText(BookRoomPopup.this, "Invalid", Toast.LENGTH_SHORT).show();
 
-                })
-                .show();
+        TextView title = new TextView(this);
+        title.setText(getString(R.string.sure_you_want_to_book));
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(20);
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.MyAlertDialogTheme).create();
+        alertDialog.setCustomTitle(title);
+        this.dbRef = FirebaseDatabase.getInstance().getReference("main");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedRoom.currentStatus = "Pending";
+                        int num = Integer.parseInt(selectedRoom.roomNumber);
+                        String numStr = String.valueOf(num);
+                        dbRef.child("hotelsList").child(selectedHotel.hotelName).child("rooms").child(numStr).setValue(selectedRoom);
+                        Toast.makeText(BookRoomPopup.this, "Done!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(BookRoomPopup.this, SpecificHotel.class);
+                        startActivity(intent);
+                        dialog.dismiss();
+
+                    }
+                });
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+
+        Button btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        Button btnNegative = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) btnPositive.getLayoutParams();
+        layoutParams.weight = 10;
+        btnPositive.setLayoutParams(layoutParams);
+        btnNegative.setLayoutParams(layoutParams);
+
+
     }
 
     private void setupStorage() {

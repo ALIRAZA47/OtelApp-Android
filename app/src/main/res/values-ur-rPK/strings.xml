@@ -56,4 +56,7 @@
     <string name="gender">Gender</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="save_profile">Save</string>
+    <string name="admin_success">Admin Success</string>
+    <string name="invalid_admin_id">Invalid Admin ID</string>
+    <string name="password_must_contain_six_char">Password must contain at least 6 Character</string>
 </resources>

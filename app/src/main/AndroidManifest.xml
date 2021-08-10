@@ -3,6 +3,8 @@
     package="com.example.otelapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -11,8 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OtelApp">
-        <activity android:name=".activities.ProfileActivity"></activity>
-        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <activity android:name=".activities.signin_signup.AdminLogin"></activity>
+        <activity android:name=".adminModule.AdminRooms" />
+        <activity android:name=".adminModule.AdminMain" />
+        <activity android:name=".activities.ProfileActivity" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-4368284252571213~2485782408" />

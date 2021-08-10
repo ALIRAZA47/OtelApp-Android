@@ -1,20 +1,14 @@
-package com.example.otelapp.activities;
+package com.example.otelapp.adminModule;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -26,10 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.otelapp.R;
 import com.example.otelapp.activities.signin_signup.LoginActivity;
 import com.example.otelapp.adapters.HotelMainAdapter;
+import com.example.otelapp.adminModule.adminAdapters.HotelAdapter;
 import com.example.otelapp.models.Hotel;
 import com.example.otelapp.models.User;
 import com.example.otelapp.utils.SharedPrefs;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +40,7 @@ import java.util.ArrayList;
 import static android.app.PendingIntent.getActivity;
 
 //start of main activity
-public class MainActivity extends AppCompatActivity {
+public class AdminMain extends AppCompatActivity {
 
     //Firebase variables here
     FirebaseDatabase database;
@@ -57,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle toggle;
     RecyclerView hotelRecyclerView;
     MaterialToolbar appBar;
+    FloatingActionButton signOut;
 
     Button logout;
     // ordinary variables here
@@ -64,13 +61,13 @@ public class MainActivity extends AppCompatActivity {
     private User user;
     private User currentUser = new User();
     private ArrayList<Hotel> hotels = new ArrayList<>();
-    private HotelMainAdapter hotelsAdapter;
+    private HotelAdapter hotelsAdapter;
     private String userPhoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_admin_main);
 
         //initialize variables
         database = FirebaseDatabase.getInstance();
@@ -86,12 +83,32 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViews() {
         retrieveDataFromDatabase();
-        setupDrawerLayout();
 
 //        setupRecyclerView();
-        //setupClickListeners();
+        setupClickListeners();
 
-        Log.i("TAG-CurrentUser", "setCurrentUser: --> "+currentUser.toString());
+    }
+
+    private void setupClickListeners() {
+        signOut = findViewById(R.id.logoutFab);
+
+        //if lougout FAB clicked
+        signOut.setOnClickListener(v -> {
+           new AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
+                   .setTitle("Logout Confirmation")
+                   .setMessage(getString(R.string.sure_you_want_to_logout))
+                   .setPositiveButton("Logout", (dialog, which) -> {
+                       mAuth.signOut();
+                       sharedPref.removeKeyPair("ADMIN");
+                       Intent intent = new Intent(this, LoginActivity.class);
+                       startActivity(intent);
+                       finish();
+                   })
+                   .setNegativeButton("No", (dialog, which) -> {
+                       //no clicked
+                       dialog.dismiss();
+                   }).show();
+        });
     }
 
     //retrieve data from database
@@ -123,96 +140,14 @@ public class MainActivity extends AppCompatActivity {
         dbRef.addValueEventListener(postListener);
     }
 
-
-    // function to setup drawer menu
-    private void setupDrawerLayout() {
-        navigationView = findViewById(R.id.navigationViewMain);
-        appBar = findViewById(R.id.topAppBar);
-        setSupportActionBar(appBar);
-        drawerLayout = findViewById(R.id.mainDrawerLayout);
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.app_name, R.string.app_name);
-        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.primaryColor));
-        toggle.syncState();
-
-        //set listeners for navigation items
-        navigationView.setNavigationItemSelectedListener(item -> {
-            //if logout is clicked
-            if (item.getItemId() == R.id.navLogout) {
-
-                TextView title = new TextView(this);
-                title.setText(getString(R.string.sure_you_want_to_logout));
-                title.setPadding(10, 10, 10, 10);
-                title.setGravity(Gravity.CENTER);
-                title.setTextColor(Color.WHITE);
-                title.setTextSize(20);
-
-                AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.MyAlertDialogTheme).create();
-                alertDialog.setCustomTitle(title);
-                this.dbRef = FirebaseDatabase.getInstance().getReference("main");
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                mAuth.signOut();
-                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                drawerLayout.closeDrawers();
-                                startActivity(intent);
-                                finish();
-                                dialog.dismiss();
-
-                            }
-                        });
-
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
-
-                Button btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                Button btnNegative = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) btnPositive.getLayoutParams();
-                layoutParams.weight = 10;
-                btnPositive.setLayoutParams(layoutParams);
-                btnNegative.setLayoutParams(layoutParams);
-
-            }
-            if(item.getItemId() == R.id.navProfile){
-                Intent intent = new Intent(this, ProfileActivity.class);
-                drawerLayout.closeDrawers();
-                startActivity(intent);
-                //drawerLayout.closeDrawers();
-            }
-            return true;
-        });
-
-
-    }
-
     //setup recycler view
     private void setupRecyclerView() {
-        hotelRecyclerView = findViewById(R.id.hotelsRecyclerView);
+        hotelRecyclerView = findViewById(R.id.hotelsRecyclerViewAdmin);
         Log.i("TAG-ALI", "setupRecyclerView: " + hotels.toString());
-        hotelsAdapter = new HotelMainAdapter(this, hotels);
+        hotelsAdapter = new HotelAdapter(this, hotels);
         hotelRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         hotelRecyclerView.setAdapter(hotelsAdapter);
 
     }
-
-
-    //Save current user to shared preferences
-
-
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (toggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
 }

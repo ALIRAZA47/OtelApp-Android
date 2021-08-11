@@ -15,7 +15,7 @@
         app:srcCompat="@android:drawable/btn_star" />
 
     <TextView
-        android:id="@+id/currentUserEmail"
+        android:id="@+id/currentUserEmailHeaderNav"
         android:textSize="25dp"
         style="@style/TextAppearance.AppCompat.Headline"
         android:layout_width="wrap_content"

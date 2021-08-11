@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -40,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Hotel> hotels = new ArrayList<>();
     private HotelMainAdapter hotelsAdapter;
     private String userPhoneNumber;
+    private Time timeNow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         sharedPref = new SharedPrefs(this);
 
+        //time now
+        timeNow = new Time();
+        Log.i("TAG-Time", "onCreate: --> " +timeNow.toString());
+
         //function calls here
         setupViews();
 
@@ -86,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViews() {
         retrieveDataFromDatabase();
-        setupDrawerLayout();
+        //setupDrawerLayout();
 
 //        setupRecyclerView();
         //setupClickListeners();

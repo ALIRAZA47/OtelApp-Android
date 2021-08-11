@@ -5,14 +5,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -41,15 +45,23 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.SimpleTimeZone;
 
 public class HomeActivity extends AppCompatActivity {
     //Firebase variables here
     FirebaseDatabase database;
     FirebaseAuth mAuth;
     DatabaseReference dbRef;
+    private Time time;
+    private GregorianCalendar timeCal;
 
     //UI variables
     AdView bannerAdView,bannerAdView2,bannerAdView3,bannerAdView4,bannerAdView5,bannerAdView6,bannerAdView7,bannerAdView8;
@@ -58,7 +70,8 @@ public class HomeActivity extends AppCompatActivity {
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
     Button btnBookNow;
-    TextView cWeatherMain, cWeatherTemp, cWeatherTempMin, cWeatherTempMax;
+    TextView cWeatherMain, cWeatherTemp, timeTxt, dateTxt;
+    TextView txtHeader;
 
     //Ordinary variables
     private User currentUser = new User();
@@ -66,6 +79,7 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayList<User> users = new ArrayList<>();
     SharedPrefs sharedPref;
 
+    private User cUser = new User();
 
 
 
@@ -74,6 +88,29 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         MobileAds.initialize(this); //initialize ads
+
+        timeTxt = findViewById(R.id.timeNow);
+        dateTxt = findViewById(R.id.date);
+
+        time = new Time();
+        SimpleTimeZone stz = new SimpleTimeZone(0*0*0*-1*-18000, "PK Time");
+        Calendar calendar = new GregorianCalendar(stz);
+        Date tt = new Date();
+        calendar.setTime(tt);
+
+        dateTxt.setText(calendar.get(Calendar.DATE) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.YEAR));
+
+        //// run a thread for time
+        Thread myThread = null;
+
+        Runnable runnable = new CountDownRunner();
+        myThread= new Thread(runnable);
+        myThread.start();
+
+        //navigation view
+        navigationView = findViewById(R.id.navigationViewHome);
+        View headView = navigationView.getHeaderView(0);
+        txtHeader = headView.findViewById(R.id.currentUserEmailHeaderNav);
 
 
         //variables declarations here
@@ -90,6 +127,40 @@ public class HomeActivity extends AppCompatActivity {
         //function calls
         setupViews();
     }
+
+    public void doWork() {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                try{
+                    TextView txtCurrentTime= (TextView)findViewById(R.id.timeNow);
+                    Date dt = new Date();
+                    int hours = dt.getHours();
+                    int minutes = dt.getMinutes();
+                    int seconds = dt.getSeconds();
+                    String curTime = hours + ":" + minutes + ":" + seconds;
+                    txtCurrentTime.setText(curTime);
+                }catch (Exception e) {}
+            }
+        });
+    }
+
+
+    class CountDownRunner implements Runnable {
+        // @Override
+        public void run() {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    doWork();
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+
+
 
     private void setupViews() {
         requestAndSetWeather();
@@ -123,8 +194,8 @@ public class HomeActivity extends AppCompatActivity {
         String reqURL = "https://api.openweathermap.org/data/2.5/weather?q=mianwali&appid=3beba2c5a71008c8501d6a9f70a0372b&units=metric";
         cWeatherMain = findViewById(R.id.currentWeatherString);
         cWeatherTemp = findViewById(R.id.currentWeatherTemperature);
-        cWeatherTempMin = findViewById(R.id.currentWeatherTempMin);
-        cWeatherTempMax = findViewById(R.id.currentWeatherTempMax);
+        //cWeatherTempMin = findViewById(R.id.currentWeatherTempMin);
+        //cWeatherTempMax = findViewById(R.id.currentWeatherTempMax);
         DecimalFormat df = new DecimalFormat("##.#");
 
         //request for weather
@@ -138,8 +209,8 @@ public class HomeActivity extends AppCompatActivity {
                         JSONObject jsonObject_weather = weather_array.getJSONObject(0);
                         cWeatherMain.setText("" + jsonObject_weather.get("description"));
                         cWeatherTemp.setText(df.format(Double.parseDouble(String.valueOf(jsonObject_main.get("temp")))) + getString(R.string.degree));
-                        cWeatherTempMin.setText("Min: " + jsonObject_main.get("temp_min"));
-                        cWeatherTempMax.setText("Max: " + jsonObject_main.get("temp_max"));
+                        //cWeatherTempMin.setText("Min: " + jsonObject_main.get("temp_min"));
+                        //cWeatherTempMax.setText("Max: " + jsonObject_main.get("temp_max"));
 
 
                     } catch (JSONException e) {
@@ -158,7 +229,7 @@ public class HomeActivity extends AppCompatActivity {
 
     //setup drawer navigation
     private void setupDrawerLayout() {
-        navigationView = findViewById(R.id.navigationViewHome);
+
         appBar = findViewById(R.id.topAppBarHome);
         setSupportActionBar(appBar);
         drawerLayout = findViewById(R.id.drawerHome);
@@ -291,6 +362,7 @@ public class HomeActivity extends AppCompatActivity {
         String user = new Gson().toJson(currentUser);
         sharedPref.removeKeyPair("currentUser");
         sharedPref.setString("currentUser", user);
+        txtHeader.setText(currentUser.name + "");
         Log.i("TAG-UserSaved", "saveUserToSharedPref: ---> User has been Saved"+ user);
 
 

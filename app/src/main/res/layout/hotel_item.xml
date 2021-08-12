@@ -61,7 +61,7 @@
                     style="@style/TextAppearance.AppCompat.Subhead"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Total Rooms: "
+                    android:text="@string/total_rooms"
                     android:textColor="@color/secondaryTextColor" />
 
                 <TextView

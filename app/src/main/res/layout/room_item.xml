@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="8sp"
                 android:textColor="@color/secondaryTextColor"
-                android:text="Room" />
+                android:text="@string/room_no" />
             <TextView
                 android:id="@+id/roomNo"
                 android:layout_width="match_parent"

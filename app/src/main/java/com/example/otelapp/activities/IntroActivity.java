@@ -1,6 +1,7 @@
 package com.example.otelapp.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -12,6 +13,8 @@ import com.example.otelapp.adminModule.AdminMain;
 import com.example.otelapp.utils.SharedPrefs;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Locale;
+
 public class IntroActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     SharedPrefs prefs;
@@ -21,8 +24,8 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro);
         prefs = new SharedPrefs(this);
+        setContentView(R.layout.activity_intro);
         mAuth = FirebaseAuth.getInstance();
 //        redirect();
         /* New Handler to start the Menu-Activity
@@ -46,5 +49,22 @@ public class IntroActivity extends AppCompatActivity {
                 finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
+    }
+
+
+
+    private void setLocale(String lang) {
+
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        prefs.setLang(lang);
+
+    }
+    private void loadDefLang() {
+        String defLang = prefs.getLang();
+        setLocale(defLang);
     }
 }

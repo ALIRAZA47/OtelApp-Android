@@ -1,62 +1,105 @@
 <resources>
     <string name="app_name" translatable="false">Otel App</string>
     <string name="title_activity_login" translatable="false">LoginActivity</string>
-    <string name="prompt_email" >Email</string>
-    <string name="prompt_password" >Password</string>
-    <string name="action_sign_in" >Sign in or register</string>
-    <string name="action_sign_in_short" >Sign in</string>
-    <string name="welcome" >"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password" >Password must be >5 characters</string>
-    <string name="login_failed" >Login failed</string>
-    <string name="login_using_phone_no"><u>Login Using Phone No.</u></string>
-    <string name="login_using_email"><u>Login Using Email</u></string>
-    <string name="dont_have_acc" ><u>Do not have account? Signup</u></string>
-    <string name="already_have_account"><u>Already have an Account? Login</u></string>
-    <string name="string_roomNo">Room No.: </string>
-    <string name="string_fare">Fare of Room: Rs </string>
-    <string name="string_Phone">"Phone: "</string>
+    <string name="prompt_email">ای میل</string>
+    <string name="prompt_password">پاس ورڈ</string>
+    <string name="action_sign_in">سائن ان کریں یا رجسٹر کریں</string>
+    <string name="action_sign_in_short">سائن ان</string>
+    <string name="welcome">خوش آمدید .!</string>
+    <string name="invalid_username">ایک درست صارف نام نہیں</string>
+    <string name="invalid_password">پاس ورڈ> 5 حروف کا ہونا چاہیے</string>
+    <string name="login_failed">لاگ ان ناکام رہے</string>
+    <string name="login_using_phone_no"><u>فون نمبر کا استعمال کرتے ہوئے لاگ ان کریں</u></string>
+    <string name="login_using_email"><u>ای میل کا استعمال کرتے ہوئے لاگ ان کریں</u></string>
+    <string name="dont_have_acc"><u>کیا اکاؤنٹ نہیں ہے؟ سائن اپ</u></string>
+    <string name="already_have_account"><u>پہلے سے ہی ایک اکاؤنٹ ہے؟ لاگ ان کریں</u></string>
+    <string name="string_roomNo">کمرہ نمبر: </string>
+    <string name="string_fare">کمرے کا کرایہ: روپے </string>
+    <string name="string_Phone">فون: </string>
     <string name="degree" translatable="false">°</string>
 
     //Gender Array for drop down
     <string-array name="genderDropDownArray">
-        <item>Male</item>
-        <item>Female</item>
-        <item>Other</item>
+        <item>مرد</item>
+        <item>عورت</item>
+        <item>دیگر</item>
     </string-array>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">ترتیبات</string>
+    <string name="hello_world">ہیلو ، دنیا!</string>
     <!-- -
-        This is an ad unit ID for a banner test ad. Replace with your own banner ad unit id.
-        For more information, see https://support.google.com/admob/answer/3052638
-    <!- -->
+    This is an ad unit ID for a banner test ad. Replace with your own banner ad unit id.
+    For more information, see https://support.google.com/admob/answer/3052638
+<!- -->
     <string name="banner_ad_unit_id">YOUR_BANNER_AD_UNIT_ID</string>
-    <string name="welcome_description">You can book Room by clicking\nBook Now. Or keep onseeing\n or ads.</string>
-    <string name="welcome_note">Welcome aboard!</string>
-    <string name="current_city">Mianwali</string>
-    <string name="book_on_the_go">Book on the Go!</string>
-    <string name="book_room_now">Book Room Now</string>
-    <string name="room_details">Details</string>
-    <string name="room_fare">Room Fare is:</string>
-    <string name="room_no_is">Room No. 03</string>
-    <string name="loading_image">Loading Image</string>
-    <string name="book_as_user">Book as :</string>
-    <string name="string_username">Username:</string>
-    <string name="string_phone">Phone:</string>
-    <string name="book_room">Book Now</string>
-    <string name="string_login">Login</string>
-    <string name="user_profile">User Profile</string>
-    <string name="enter_your_information_below">Enter your information below!</string>
-    <string name="email_address">Email address</string>
-    <string name="password">Password</string>
-    <string name="confirm_password">Confirm password</string>
-    <string name="phone_number_3xxxxxx">Phone number (3xxxxxx)</string>
-    <string name="cnic_without_dashes">CNIC (without dashes)</string>
-    <string name="address">Address</string>
-    <string name="gender">Gender</string>
-    <string name="edit_profile">Edit Profile</string>
-    <string name="save_profile">Save</string>
-    <string name="admin_success">Admin Success</string>
-    <string name="invalid_admin_id">Invalid Admin ID</string>
-    <string name="password_must_contain_six_char">Password must contain at least 6 Character</string>
+    <string name="welcome_note">خوش آمدید !</string>
+    <string name="current_city">میانوالی</string>
+    <string name="book_on_the_go">چلتے پھرتے بک کرو !</string>
+    <string name="book_room_now">ابھی بک روم</string>
+    <string name="room_details">تفصیلات</string>
+    <string name="room_fare">کمرے کا کرایہ یہ ہے: </string>
+    <string name="room_no_is">کمرہ نمبر 03</string>
+    <string name="loading_image">تصویر لوڈ ہو رہی ہے</string>
+    <string name="book_as_user"> بک بطور: </string>
+    <string name="string_username">صارف نام: </string>
+    <string name="string_phone">فون: </string>
+    <string name="book_room">ابھی بک کرو۔</string>
+    <string name="string_login">لاگ ان کریں</string>
+    <string name="user_profile">صارف کا پروفائل</string>
+    <string name="enter_your_information_below">نیچے اپنی معلومات درج کریں!</string>
+    <string name="name">نام</string>
+    <string name="email_address">ای میل اڈریس</string>
+    <string name="password">پاس ورڈ</string>
+    <string name="confirm_password">پاس ورڈ کی تصدیق کریں </string>
+    <string name="phone_number_3xxxxxx">فون نمبر (3xxxxxx)</string>
+    <string name="cnic_without_dashes">شناختی کارڈ نمبر (بغیر ڈیش کے)</string>
+    <string name="address">پتہ۔</string>
+    <string name="gender">صنف</string>
+    <string name="edit_profile">ترمیم کریں</string>
+    <string name="save_profile">محفوظ کریں</string>
+    <string name="email_required">ای میل درکار ہے</string>
+    <string name="password_required">پاس ورڈ درکار ہے۔</string>
+    <string name="admin_success">ایڈمن کامیابی۔</string>
+    <string name="invalid_admin_id">غلط ایڈمن شناخت۔</string>
+    <string name="provide_email_pass">براہ کرم ای میل اور پاس ورڈ فراہم کریں۔</string>
+    <string name="password_must_contain_six_char">پاس ورڈ میں کم از کم 6 حروف ہونے چاہئیں۔</string>
+    <string name="not_valid_user">درست صارف نہیں۔</string>
+    <string name="singed_in">سائن ان کیا۔</string>
+    <string name="phone_match">فون مماثل۔</string>
+    <string name="phone_not_registered">فون نمبر رجسٹرڈ نہیں ہے۔</string>
+    <string name="user_found">صارف ملا۔</string>
+    <string name="select_gender">جنس منتخب کریں: </string>
+    <string name="male">مرد۔</string>
+    <string name="female">عورت</string>
+    <string name="other_gender">دیگر</string>
+    <string name="name_required">نام درکار ہے</string>
+    <string name="passwords_not_match">پاس ورڈ میچ نہیں کرتے</string>
+    <string name="signup_success">کامیابی کے ساتھ سائن اپ!</string>
+    <string name="sure_you_want_to_book">کیا آپ واقعی کمرہ بک کروانا چاہتے ہیں ؟</string>
+    <string name="yes">جی ہاں</string>
+    <string name="no">نہیں</string>
+    <string name="failed_to_retrieve_data">ڈیٹا بازیافت کرنے میں ناکام۔</string>
+    <string name="user_not_retrieved">صارف کو بازیافت نہیں کیا جا سکا۔</string>
+    <string name="already_booked">پہلے ہی بک ہو چکا ہے۔</string>
+    <string name="sure_you_want_to_logout">کیا آپ واقعی لاگ آؤٹ کرنا چاہتے ہیں؟</string>
+    <string name="current_weather_description">بارش کی بارش۔</string>
+    <string name="admin_login">ایڈمن لاگ ان</string>
+    <string name="phone_no_hint">فون نمبر (3xxxxxxxxxxx)</string>
+    <string name="string_signup">سائن اپ</string>
+    <string name="rooms_of">:: کمرے</string>
+    <string name="verify_phone_number">فون نمبر کی تصدیق کریں</string>
+    <string name="otp_pin">OTP پن</string>
+    <string name="string_verify">تصدیق کریں</string>
+    <string name="total_rooms">کل کمرے:</string>
+    <string name="room_no">کمرہ نمبر</string>
+    <string name="welcome_desc">اوٹیل ایپ میں خوش آمدید۔ آپ ابھی بک روم پر کلک کرکے کمرہ بک کروا سکتے ہیں۔ بصورت دیگر آپ موسم کی تازہ کاریوں یا خوشگوار اشتہارات سے لطف اندوز ہوں :)</string>
+    <string name="follow_us">ہمیں فالو کریں!</string>
+    <string name="profile">پروفائل</string>
+    <string name="rooms_booked">بک رومز</string>
+    <string name="rate_us">ہمیں درجہ دیں</string>
+    <string name="logout">لاگ آوٹ</string>
+    <string name="language">زبان</string>
+    <string name="urdu">اردو</string>
+    <string name="english">انگریزی</string>
+    <string name="get_started"></string>
+    <string name="change_lang">زبان بدلیں</string>
 </resources>

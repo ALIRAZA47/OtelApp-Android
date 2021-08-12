@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:background="@drawable/edit_text_bkg"
-        android:hint="OTP Pin"
+        android:hint="@string/otp_pin"
         android:inputType="numberSigned"
         android:textColorHint="@color/primaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="292dp"
-        android:text="Verify Phone Number"
+        android:text="@string/verify_phone_number"
         android:textColor="@color/primaryTextColor"
         android:textIsSelectable="false"
         android:textSize="30dp"
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_styled"
-            android:text="Verify"
+            android:text="@string/string_verify"
             android:textSize="20sp"
           />
 

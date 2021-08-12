@@ -156,7 +156,10 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isComplete()){
-                            Toast.makeText(SignupActivity.this, getString(R.string.signup_success), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SignupActivity.this, getString(R.string.signup_success), Toast.LENGTH_SHORT).show();
+                            Intent gotoLoginActivity = new Intent(SignupActivity.this, LoginActivity.class);
+                            startActivity(gotoLoginActivity);
+                            finish();
                         }
                         else{
                             Toast.makeText(SignupActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -164,9 +167,7 @@ public class SignupActivity extends AppCompatActivity {
                         }
                     }
                 });
-                Intent gotoLoginActivity = new Intent(this, LoginActivity.class);
-                startActivity(gotoLoginActivity);
-                finish();
+
             }
 
         });

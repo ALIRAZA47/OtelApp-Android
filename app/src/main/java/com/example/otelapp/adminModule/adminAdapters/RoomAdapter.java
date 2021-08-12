@@ -92,9 +92,11 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
                             }
                         });
 
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                int roomNum = Integer.parseInt(rooms.get(position).roomNumber) ;
+                                dbRef.child("hotelsList").child(sHotel).child("rooms").child(String.valueOf(roomNum)).child("currentStatus").setValue("Available");
                                 dialog.dismiss();
                             }
                         });

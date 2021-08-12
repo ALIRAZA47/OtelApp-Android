@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:textColor="@color/secondaryTextColor"
-            android:text="Rooms of :: " />
+            android:text="@string/rooms_of" />
 
         <TextView
             android:id="@+id/hotelName_roomActivity"

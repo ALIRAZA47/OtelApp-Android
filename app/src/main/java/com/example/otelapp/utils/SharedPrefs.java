@@ -34,4 +34,12 @@ public class SharedPrefs{
         editor.remove(key);
         editor.commit();
     }
+    public void setLang(String lang){
+        editor.putString("Lang", lang);
+        editor.commit();
+    }
+    public String getLang(){
+        String res = prefs.getString("Lang", "en");
+        return res;
+    }
 }

@@ -2,10 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item android:title="Follow us!" android:id="@+id/navFollowUs"  android:icon="@drawable/ic_baseline_follow_the_signs_24" android:iconTint="@color/black"/>
-    <item android:title="Profile"  android:id="@+id/navProfile" android:icon="@drawable/ic_baseline_person_24" android:iconTint="@color/black"/>
-    <item android:title="Rooms Booked"  android:id="@+id/bookedRooms" android:icon="@drawable/ic_baseline_person_24" android:iconTint="@color/black"/>
-    <item android:title="Rate us" android:id="@+id/navRateUs" android:icon="@drawable/ic_baseline_star_rate_24" android:iconTint="@color/black"/>
-    <item android:title="Settings" android:id="@+id/settings" android:icon="@drawable/ic_baseline_settings_24" android:iconTint="@color/black"/>
-    <item android:title="Logout" android:id="@+id/navLogout" android:icon="@drawable/ic_baseline_exit_to_app_24" android:iconTint="@color/black"/>
+    <item android:title="@string/follow_us" android:id="@+id/navFollowUs"  android:icon="@drawable/ic_baseline_follow_the_signs_24" android:iconTint="@color/black"/>
+    <item android:title="@string/profile"  android:id="@+id/navProfile" android:icon="@drawable/ic_baseline_person_24" android:iconTint="@color/black"/>
+    <item android:title="@string/rooms_booked"  android:id="@+id/bookedRooms" android:icon="@drawable/ic_baseline_person_24" android:iconTint="@color/black"/>
+    <item android:title="@string/rate_us" android:id="@+id/navRateUs" android:icon="@drawable/ic_baseline_star_rate_24" android:iconTint="@color/black"/>
+    <item android:title="@string/action_settings" android:id="@+id/settings" android:icon="@drawable/ic_baseline_settings_24" android:iconTint="@color/black"/>
+    <item android:title="@string/logout" android:id="@+id/navLogout" android:icon="@drawable/ic_baseline_exit_to_app_24" android:iconTint="@color/black"/>
+    <item android:title="@string/change_lang" android:id="@+id/lang" android:icon="@drawable/ic_baseline_settings_24" android:iconTint="@color/black"/>
 </menu>

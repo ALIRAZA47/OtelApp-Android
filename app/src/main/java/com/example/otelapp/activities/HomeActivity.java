@@ -3,6 +3,7 @@ package com.example.otelapp.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.Time;
@@ -11,6 +12,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.UiThread;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.android.volley.Request;
@@ -53,6 +56,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Locale;
 import java.util.SimpleTimeZone;
 
 public class HomeActivity extends AppCompatActivity {
@@ -72,8 +77,11 @@ public class HomeActivity extends AppCompatActivity {
     Button btnBookNow;
     TextView cWeatherMain, cWeatherTemp, timeTxt, dateTxt;
     TextView txtHeader;
+    SwitchCompat langSwitch;
 
     //Ordinary variables
+    HashMap<Integer, String> months= new HashMap<>();
+
     private User currentUser = new User();
     String userPhoneNumber;
     private ArrayList<User> users = new ArrayList<>();
@@ -98,19 +106,50 @@ public class HomeActivity extends AppCompatActivity {
         Date tt = new Date();
         calendar.setTime(tt);
 
-        dateTxt.setText(calendar.get(Calendar.DATE) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.YEAR));
 
         //// run a thread for time
         Thread myThread = null;
 
+        months.put(0, "January");
+        months.put(1, "February");
+        months.put(2, "March");
+        months.put(3, "April");
+        months.put(4, "May");
+        months.put(5, "June");
+        months.put(6, "July");
+        months.put(7, "August");
+        months.put(8, "September");
+        months.put(9, "October");
+        months.put(10, "November");
+        months.put(11, "December");
+        dateTxt.setText(calendar.get(Calendar.DATE) + " " + months.get(calendar.get(Calendar.MONTH)) + "" + calendar.get(Calendar.YEAR));
         Runnable runnable = new CountDownRunner();
         myThread= new Thread(runnable);
         myThread.start();
 
         //navigation view
         navigationView = findViewById(R.id.navigationViewHome);
+        drawerLayout = findViewById(R.id.drawerHome);
         View headView = navigationView.getHeaderView(0);
         txtHeader = headView.findViewById(R.id.currentUserEmailHeaderNav);
+
+        //setup language UR/EN
+        langSwitch = headView.findViewById(R.id.langSwitch);
+
+//        langSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if (isChecked){
+//                //urdu language is selected
+//                setLocale("ur");
+//
+//                recreate();
+//            }
+//            else{
+//                //english language is selected
+//                setLocale("en");
+//                recreate();
+//
+//            }
+//        });
 
 
         //variables declarations here
@@ -128,6 +167,17 @@ public class HomeActivity extends AppCompatActivity {
         setupViews();
     }
 
+    private void setLocale(String lang) {
+
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        sharedPref.setLang(lang);
+
+    }
+
     public void doWork() {
         runOnUiThread(new Runnable() {
             public void run() {
@@ -136,8 +186,7 @@ public class HomeActivity extends AppCompatActivity {
                     Date dt = new Date();
                     int hours = dt.getHours();
                     int minutes = dt.getMinutes();
-                    int seconds = dt.getSeconds();
-                    String curTime = hours + ":" + minutes + ":" + seconds;
+                    String curTime = hours + " : " + minutes ;
                     txtCurrentTime.setText(curTime);
                 }catch (Exception e) {}
             }
@@ -232,7 +281,7 @@ public class HomeActivity extends AppCompatActivity {
 
         appBar = findViewById(R.id.topAppBarHome);
         setSupportActionBar(appBar);
-        drawerLayout = findViewById(R.id.drawerHome);
+
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.app_name, R.string.app_name);
         toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.primaryColor));
         toggle.syncState();
@@ -284,6 +333,20 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);
                 //drawerLayout.closeDrawers();
+            }
+            if (item.getItemId() == R.id.lang){
+                if (sharedPref.getLang().equals("en")){
+                    setLocale("ur");
+                    recreate();
+                    item.setTitle("انگریزی زبان کریں");
+
+                }
+                else{
+                    setLocale("en");
+                    recreate();
+                    item.setTitle("Change Lang to Eng");
+
+                }
             }
             return true;
         });
